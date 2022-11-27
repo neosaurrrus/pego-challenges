@@ -1,14 +1,13 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import Navbar from '../components/Navbar'
-import { useUser } from '@auth0/nextjs-auth0'
-import styles from '../styles/Home.module.css'
-import HackerNews from '../components/HackerNews'
+import Head from "next/head";
+import Image from "next/image";
+import Navbar from "../components/Navbar";
+import { useUser } from "@auth0/nextjs-auth0";
+import styles from "../styles/Home.module.css";
+import HackerNews from "../components/HackerNews";
 
 export default function Home() {
-  const { user } = useUser()
+  const { user } = useUser();
 
-  
   return (
     <div className={styles.container}>
       <Head>
@@ -20,18 +19,16 @@ export default function Home() {
       <main className={styles.main}>
         <Navbar />
 
-       { user ? <HackerNews /> : (
+        {user ? (
+          <HackerNews />
+        ) : (
           <h1 className={styles.title}>
-          <a href="/api/auth/login">Login</a> to see Hacker News
-        </h1>
-        ) 
-      }
-        
+            <a href="/api/auth/login">Login</a> to see Hacker News
+          </h1>
+        )}
       </main>
 
-      <footer className={styles.footer}>
-        By Lukie Kang
-      </footer>
+      <footer className={styles.footer}>By Lukie Kang</footer>
     </div>
-  )
+  );
 }
