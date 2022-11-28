@@ -1,13 +1,13 @@
 /* eslint-disable react/display-name */ // TODO: Adjust linting rules to allow for this.
 import { render, screen } from "@testing-library/react";
+import { ReactNode } from "react";
 import HackerNewsPage from "../pages/hacker-news/index";
 
 jest.mock("components/StoryGroup", () => () => (
   <div data-testid="story-group" />
 ));
 jest.mock("@auth0/nextjs-auth0", () => ({
-  UserProvider: ({ children }) => children,
-  withPageAuthRequired: (component) => component,
+  withPageAuthRequired: (component: ReactNode) => component,
 }));
 
 const mockProps = {
