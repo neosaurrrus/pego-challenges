@@ -17,26 +17,25 @@ const mockProps = {
 };
 
 describe("Test HackerNews Page", () => {
-  it('should render "Ask Stories" heading', () => {
-    render(<HackerNewsPage {...mockProps} />);
-    screen.debug();
-    expect(
-      screen.getByRole("heading", { name: "Ask Stories" })
-    ).toBeInTheDocument();
-  });
-  it('should render "Show Stories" heading', () => {
+  it('should render "Ask Stories" summary', () => {
     render(<HackerNewsPage {...mockProps} />);
     expect(
-      screen.getByRole("heading", { name: "Show Stories" })
+      screen.getByText("Ask Stories", { selector: "summary" })
     ).toBeInTheDocument();
   });
-  it('should render "Job Stories" heading', () => {
+  it('should render "Show Stories" summary', () => {
     render(<HackerNewsPage {...mockProps} />);
     expect(
-      screen.getByRole("heading", { name: "Job Stories" })
+      screen.getByText("Show Stories", { selector: "summary" })
     ).toBeInTheDocument();
   });
-  it("should render 3 StoryGroup components", () => {
+  it('should render "Job Stories" summary', () => {
+    render(<HackerNewsPage {...mockProps} />);
+    expect(
+      screen.getByText("Job Stories", { selector: "summary" })
+    ).toBeInTheDocument();
+  });
+  it("should render three StoryGroup components", () => {
     render(<HackerNewsPage {...mockProps} />);
     expect(screen.getAllByTestId("story-group")).toHaveLength(3);
   });

@@ -11,18 +11,25 @@ type Props = {
 function HackerNewsPage({ askStories, showStories, jobStories }: Props) {
   return (
     <div className={styles.container}>
-      <h2>Ask Stories</h2>
-      <StoryGroup storiesArray={askStories} />
-      <h2>Show Stories</h2>
-      <StoryGroup storiesArray={showStories} />
-      <h2>Job Stories</h2>
-      <StoryGroup storiesArray={jobStories} />
+      <details>
+        <summary>Ask Stories</summary>
+        <StoryGroup storiesArray={askStories} />
+      </details>
+      <details>
+        <summary>Show Stories</summary>
+        <StoryGroup storiesArray={showStories} />
+      </details>
+      <details>
+        <summary>Job Stories</summary>
+        <StoryGroup storiesArray={jobStories} />
+      </details>
     </div>
   );
 }
 
 export default withPageAuthRequired(HackerNewsPage);
 
+// In RL, i'd think more about Client/Server/Static throughout the app.
 export async function getStaticProps() {
   const [askRes, showRes, jobRes] = await Promise.all([
     fetch("https://hacker-news.firebaseio.com/v0/askstories.json"),
