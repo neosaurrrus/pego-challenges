@@ -1,5 +1,8 @@
 ## Hackernews App
 
+Quickly (so might not entirely work...) hosted on Vercel here - https://hackernews-app-lk.vercel.app/  
+
+
 Hey, this is my attempt at the PEGO coding frontend challenge. It is build with create-next-app so hopefully the boilerplate text below is good to get things up and running
 
 Standard disclaimer of having limited time to refactor, add tests, error handling etc.
