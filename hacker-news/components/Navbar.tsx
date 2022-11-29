@@ -9,21 +9,23 @@ export default function Navbar() {
   if (error) return <div>{error.message}</div>;
 
   return (
-    <nav>
+    <nav className="bg-gray-800 px-4 h-[50px] items-center">
       {user ? (
-        <div>
+        <div className="flex flex-row gap-8 justify-end items-center ">
           <Image
             src={user.picture as string}
             width={50}
             height={50}
             alt={user.name as string}
           />
-          <h2>{user.name}</h2>
-          <p>{user.email}</p>
+          <span>{user.name}</span>
+          <span>{user.email}</span>
           <a href="/api/auth/logout">Logout</a>
         </div>
       ) : (
-        <a href="/api/auth/login">Login</a>
+        <a className="flex justify-end py-3" href="/api/auth/login">
+          Login
+        </a>
       )}
     </nav>
   );
