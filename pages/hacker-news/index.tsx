@@ -1,4 +1,3 @@
-import styles from "styles/Home.module.css";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0";
 import StoryGroup from "../../components/StoryGroup";
 
@@ -10,17 +9,17 @@ type Props = {
 
 function HackerNewsPage({ askStories, showStories, jobStories }: Props) {
   return (
-    <div className={styles.container}>
+    <div className="h-4/5 flex flex-col gap-6 p-8">
       <details>
-        <summary>Ask Stories</summary>
+        <summary className="text-2xl hover:font-bold ">Ask Stories 🙋‍♂️</summary>
         <StoryGroup storiesArray={askStories} />
       </details>
       <details>
-        <summary>Show Stories</summary>
+        <summary className="text-2xl hover:font-bold">Show Stories 🧑‍🔬</summary>
         <StoryGroup storiesArray={showStories} />
       </details>
       <details>
-        <summary>Job Stories</summary>
+        <summary className="text-2xl hover:font-bold">Job Stories 👷‍♂️</summary>
         <StoryGroup storiesArray={jobStories} />
       </details>
     </div>
