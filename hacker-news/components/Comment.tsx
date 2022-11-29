@@ -35,9 +35,9 @@ export default function Story({ commentId }: Props) {
   const { by, text, time } = comment;
 
   return (
-    <div>
-      <p>
-        By: {by} {convertUnixTimeToHumanTime(time)}
+    <div className="bg-gray-700/25 p-4 flex flex-col gap-4 text-sm">
+      <p className="font-bold">
+        {by} | {convertUnixTimeToHumanTime(time)}
       </p>
       <p>{text && parse(text)}</p>
     </div>
