@@ -1,7 +1,9 @@
 // This is a React component that renders a single story.
-// TODO: Update this component match required functionality (placeholder for now).
+// TODO: Consider value of using React.memo for this component
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import Comment from "./Comment";
+import UserDetails from "./UserDetails";
 
 type Props = {
   storyId: number;
@@ -22,31 +24,48 @@ type Story = {
 export default function Story({ storyId }: Props) {
   const [story, setStory] = useState({} as Story);
   const [shouldShowComments, setShouldShowComments] = useState(false);
+  const [shouldShowUserDetails, setShouldShowUserDetails] = useState(false);
 
   useEffect(() => {
     fetch(`https://hacker-news.firebaseio.com/v0/item/${storyId}.json`)
       .then((res) => res.json())
       .then((data) => {
         setStory(data);
+      })
+      .catch((error) => {
+        // This is a very basic error handling approach...
+        console.error("Error:", error);
       });
   }, [storyId]);
 
-  if (!story) {
-    return <div>Loading...</div>;
+  const { title, by, url, score, kids: commentsArray } = story;
+
+  if (!story || !title || !by || !score) {
+    // Very basic unhappy path handling
+    return <div>...</div>;
   }
-  const { title, by, url, score, descendants, kids } = story;
 
   return (
     <div>
       <h3>{url ? <Link href={url}>{title}</Link> : title}</h3>
-      <p>By: {by}</p>
+      {shouldShowUserDetails ? (
+        <UserDetails userId={by} />
+      ) : (
+        <button onClick={() => setShouldShowUserDetails(true)}>{by}</button>
+      )}
       <p>Score: {score}</p>
-      {kids && (
+      {commentsArray && (
         <button onClick={() => setShouldShowComments((current) => !current)}>
-          Comments: {kids.length}
+          {shouldShowComments ? "Hide" : "Show"} {commentsArray.length} Comments
         </button>
       )}
-      {shouldShowComments && <p>Placeholder for comments</p>}
+      {shouldShowComments && (
+        <div>
+          {commentsArray?.map((commentId: number) => (
+            <Comment key={commentId} commentId={commentId} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }
