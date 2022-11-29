@@ -1,3 +1,4 @@
+// This is a React component that handles pagination and renders a group of stories.
 import React, { useState, useEffect } from "react";
 import Story from "./Story";
 
@@ -6,24 +7,44 @@ type Props = {
 };
 
 export default function StoryGroup({ storiesArray }: Props) {
-  const [numberOfStoriesToShow, setNumberOfStoriesToShow] = useState(10);
+  const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
 
   useEffect(() => {
-    if (storiesArray.length < numberOfStoriesToShow) {
-      setNumberOfStoriesToShow(storiesArray.length);
+    if (storiesArray.length < currentStoryIndex) {
+      setCurrentStoryIndex(storiesArray.length);
     }
-  }, [numberOfStoriesToShow, storiesArray]);
+  }, [currentStoryIndex, storiesArray]);
 
-  const storiesToShow = storiesArray.slice(0, numberOfStoriesToShow);
+  const storiesToShow = storiesArray.slice(
+    currentStoryIndex,
+    currentStoryIndex + 10
+  );
+
+  const renderPagination = () => {
+    // Very basic pagination
+    if (storiesArray.length > currentStoryIndex) {
+      return (
+        <div>
+          <button
+            onClick={() => setCurrentStoryIndex((current) => current - 10)}
+            disabled={currentStoryIndex < 10}
+          >
+            Previous 10 Stories
+          </button>
+          <button
+            onClick={() => setCurrentStoryIndex((current) => current + 10)}
+            disabled={currentStoryIndex + 10 >= storiesArray.length}
+          >
+            Next 10 Stories
+          </button>
+        </div>
+      );
+    }
+  };
 
   return (
     <div>
-      <button
-        onClick={() => setNumberOfStoriesToShow(numberOfStoriesToShow + 10)}
-      >
-        Show More
-      </button>
-
+      {renderPagination()}
       {storiesToShow?.map((storyId) => (
         <Story key={storyId} storyId={storyId} />
       ))}
