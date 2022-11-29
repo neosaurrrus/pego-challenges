@@ -1,6 +1,7 @@
 // This is a React component that renders a single story.
 // TODO: Consider value of using React.memo for this component
 import Link from "next/link";
+import parse from "html-react-parser";
 import React, { useState, useEffect } from "react";
 import Comment from "./Comment";
 import UserDetails from "./UserDetails";
@@ -53,7 +54,7 @@ export default function Story({ storyId }: Props) {
     <>
       <div className="bg-gray-800 flex flex-col m-4 p-4 rounded-md gap-2 items-start">
         <h3 className={`text-xl ${url && "text-blue-500 hover:text-blue-400"}`}>
-          {url ? <Link href={url}>{title}</Link> : title}
+          {url ? <Link href={url}>{parse(title)}</Link> : parse(title)}
         </h3>
         <p>Score: {score}</p>
         <div className="flex flex-col text-left">
