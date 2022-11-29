@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { useUser } from "@auth0/nextjs-auth0";
 
@@ -24,7 +25,7 @@ export default function Navbar() {
           )}
           <span>{user.name}</span>
           <span>{user.email}</span>
-          <a href="/api/auth/logout">Logout</a>
+          <Link href="/api/auth/logout">Logout</Link>
         </div>
       )}
     </nav>
